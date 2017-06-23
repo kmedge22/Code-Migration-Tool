@@ -1,0 +1,43 @@
+Requirements
+Write a Java application that, given the original source tree folder path as an input, generates a new source tree in a format that follows the maven standard format (see handout), and adheres to the standard maven project structure for each current file.
+	· The program should take two input parameters passed as arguments to the main class:
+		o The first argument is the location of the original source folder to convert.
+		o The second argument is the output location of the converted source tree.
+	
+	· The program should iterate through the entire tree, and evaluate every file.  Every file in the source directory must exist at a location in the target directory.
+		o Except for:
+			§ Bin folders/files
+			§ .settings folders/files
+			§ .class/.project files
+	
+	· The copy process must maintain the original package structure of the class.  See the following examples:
+	
+	Java files that end with “Test” are Junit unit test files.  They should be copied to the src/test/java/ base directory.  The package structure must be preserved for unit tests classes as well.
+	· Files that are located in the “WebContent” folders should be copied to the maven default web content base directory, which is <projectDir>/src/main/webapp.  
+	· Reqs from stand-up:
+		o All in CDIConfig are to be put in src\main\resources
+		o All ending in .properties are to be put in src\main\resources
+		o All ending in .html are to be put into src\main\resources
+		o For .MF files
+			§ For CDIEnterprise, put in src\main\application
+			§ For CDIEJB, put in src\main\resources
+			§ Skip for CDICommonWeb and CDICommonApp
+			§ For CDIClient, put in src\main\resources
+	· Unit tests are executed by writing Junit Tests.  Try your best to use the TDD discipline for writing tests and production code. 
+	· When the copy process has completed, print out a list of metrics that were collected about the conversion process.  
+		o Total time elapsed from conversion start to conversion finish, in seconds
+		o Counts of different types of files that were encountered:
+				§ Count of total files in source tree
+				§ Count of total files in target tree (they should match)
+				§ File Extension type:
+				§ Number of files copied for Extension:
+
+Example:
+
+Time Elapsed:  30.520 seconds
+
+Files converted:
+.java        1533
+.properties    10
+.html        300
+.jsp        450
