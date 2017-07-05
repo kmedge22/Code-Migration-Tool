@@ -7,21 +7,24 @@ import java.nio.file.Paths;
 
 class AppRunner {
         public static void main(String[] args) throws IOException {
+                long startTime = currentTimeMillis();
                 AppRunner app = new AppRunner();
+                Path source = Paths.get("c:\\IND_Consolidated_Disbursements_Init_WAS61\\source\\");
+                Path target = Paths.get("C:\\TestTarget");
+                app.run(source, target);
+                long endTime = currentTimeMillis();
+                long totalTime = endTime - startTime;
+                out.println("Program completed in " + totalTime / 1000 + " seconds" + "\n");
+                MetricVisitor m = new MetricVisitor();
+                Files.walkFileTree(target, m);
+                m.getFileCount();
 
-                app.run();
-
-        }
+ }
 
         private void run() throws IOException {
-            RulesEngine rules = new RulesEngine(Paths.get("c:\\IND_Consolidated_Disbursements_Init_WAS61\\source"),
-                    Paths.get("c:\\Users\\kedge\\Desktop\\tests"));
+                FileVisitor visitor = new FileVisitor();
+                visitor.setTargetDir(target);
+                Files.walkFileTree(source, visitor);
 
-            //init fileVisitor
-            Path fileDir = rules.getOriginalPath();
-            FileVisitor visitor = new FileVisitor();
-            Files.walkFileTree(fileDir, visitor);
-            rules.iterateThroughUnknownFileTypes();
-            visitor.getFinalFileCount();
         }
 }
